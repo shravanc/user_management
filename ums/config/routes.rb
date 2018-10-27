@@ -1,5 +1,4 @@
 Ums::Engine.routes.draw do
-
   resources :users do
     collection do
       post :forgot_password
