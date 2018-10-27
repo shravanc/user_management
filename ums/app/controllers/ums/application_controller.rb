@@ -4,8 +4,20 @@ module Ums
     skip_before_action :verify_authenticity_token
     #protect_from_forgery with: :exception
 
+    def validate_privilege
+      return [false, {}] unless [:post, :put, :patch].include?request.method
+      privilege = params[:action] + '_' + params[:controller]
+      privileges = params[:session].user.role.last.privileges.map(&:action)
+      if privileges.include? privilege
+        return [true, {}]
+      else
+        return [false, {message: 'Sorry, Action not allowed'}]
+      end
+
+    end
 
     def validate_session
+      logger.warn params
       @session = Session.find_by_session_id(params[:session_id])
       if @session.nil?
         data = {errors: [{code: 123, message: 'session could not be found'}], message: 'Invalid session'}

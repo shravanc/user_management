@@ -7,6 +7,7 @@ module Ums
 
 
     def index
+      logger.warn params
       render json: {users: User.all.as_json}
     end
 

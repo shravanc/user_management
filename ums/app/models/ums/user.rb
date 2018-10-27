@@ -2,6 +2,10 @@ module Ums
   class User < ApplicationRecord
     has_many :sessions
     has_many :rewards
+
+    has_one :user_role
+    has_one :role, through: :user_role
+
     
     before_save :set_password_salt
     before_create :set_confirmation_token

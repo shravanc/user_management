@@ -7,6 +7,10 @@ Ums::Engine.routes.draw do
     end
   end
   
+  resources :roles
+  resources :privileges
+  
+
   resources :sessions do
     post :update_profile
     put :change_password

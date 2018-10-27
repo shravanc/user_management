@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_07_154004) do
+ActiveRecord::Schema.define(version: 2018_10_20_133430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 2018_10_07_154004) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ums_privileges", force: :cascade do |t|
+    t.string "title"
+    t.string "action"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ums_rewards", force: :cascade do |t|
     t.string "title"
     t.string "action"
@@ -50,9 +57,30 @@ ActiveRecord::Schema.define(version: 2018_10_07_154004) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ums_role_privileges", force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "privilege_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ums_roles", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ums_sessions", force: :cascade do |t|
     t.string "session_id"
     t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ums_user_roles", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
